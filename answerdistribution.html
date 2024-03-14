@@ -1,0 +1,51 @@
+ 
+<html>
+   <head>
+      <title>Answer Distribution</title>
+      <style>
+        /* Hide browser controls and address bar */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+     </style>
+      <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js">
+      </script>
+      <script type = "text/javascript">
+         google.charts.load('current', {packages: ['corechart','bar']});     
+      </script>
+
+
+
+   </head>
+   
+   <body>
+      <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto">
+      </div>
+      <script language = "JavaScript">
+         function drawChart() {
+           const urlParams = new URLSearchParams(window.location.search);
+           const dataString = urlParams.get('data');
+           var y = JSON.parse(dataString);
+           var y_values = JSON.parse(y);
+           var data = google.visualization.arrayToDataTable([
+               ['Answer', 'Percent'],
+               ['A',  y_values[0]],
+               ['B',  y_values[1]],
+               ['C',  y_values[2]],
+               ['D',  y_values[3]],
+               ['E',  y_values[4]]
+            ]);
+
+            var options = {title: 'Answer Distribution (Pct)', bars: 'horizontal', colors: ['#008080']};  
+
+            // Instantiate and draw the chart.
+            var chart = new google.charts.Bar(document.getElementById('container'));
+            chart.draw(data, options);
+         }
+ 
+         google.charts.setOnLoadCallback(drawChart);
+      </script>
+   </body>
+</html>
+
